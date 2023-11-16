@@ -1,0 +1,8 @@
+---
+- name: Setup Nginx
+  hosts: load_balancer
+  become: true
+  roles:
+    - role: nginx/download
+    - role: nginx/prereq
+    - role: nginx

@@ -1,0 +1,19 @@
+---
+- name: Set bootstrap token as fact
+  set_fact:
+    bootstrap_token: "{{ hostvars[groups['server'][0]].bootstrap_token  }}"
+
+- name: Copy K3s service file
+  ansible.builtin.template:
+    src: "k3s-agent.service.j2"
+    dest: "{{ systemd_dir }}/k3s-agent.service"
+    owner: root
+    group: root
+    mode: 0755
+
+- name: Enable and check K3s service
+  ansible.builtin.systemd:
+    name: k3s-agent
+    daemon_reload: true
+    state: started
+    enabled: true

@@ -1,0 +1,30 @@
+---
+- name: Ensure nginx is at the latest version
+  yum:
+    name: 
+      - nginx
+      - nginx-mod-stream
+    state: latest
+
+- name: install selinux deps
+  yum:
+    name: 
+      - policycoreutils
+      - libselinux-python3
+      - policycoreutils-python
+    state: latest
+
+- name: Distributing custom selinux policies
+  copy:
+    src: "./nginx.te"
+    dest: "/nginx.te"
+  register: custom_policies_output
+
+- name: Build and reload custom selinux policy files
+  shell: |
+    checkmodule -M -m -o nginx.mod nginx.te
+    semodule_package -o nginx.pp -m nginx.mod 
+    /usr/sbin/semodule -u /nginx.pp
+  args:
+    chdir: "/"
+  when: custom_policies_output.changed

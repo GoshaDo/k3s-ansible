@@ -1,0 +1,30 @@
+---
+- name: Setup Nginx
+  hosts: load_balancer
+  become: true
+  roles:
+    - role: nginx/download
+    - role: nginx/prereq
+    - role: nginx
+
+- name: Cluster prep
+  hosts: k3s_cluster
+  gather_facts: true
+  become: true
+  roles:
+    - role: prereq
+    - role: download
+    - role: k3s/custom_registries
+      when: custom_registries_yaml is defined
+
+- name: Setup K3S server
+  hosts: server
+  become: true
+  roles:
+    - role: k3s/server  # noqa: role-name[path]
+
+- name: Setup K3S agent
+  hosts: agent
+  become: true
+  roles:
+    - role: k3s/agent  # noqa: role-name[path]

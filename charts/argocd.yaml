@@ -1,0 +1,29 @@
+applicationSet:
+  enabled: true
+notifications:
+  enabled: false
+dex:
+  enabled: false
+server:
+  ingress:
+    enabled: true
+    annotations:
+      cert-manager.io/cluster-issuer: selfsigned-cluster-issuer
+      kubernetes.io/ingress.class: traefik
+    paths:
+        - /
+    tls:
+      - secretName: argocd-letsencrypt-poc
+        hosts:
+          - argocd.local
+controller:
+  credentialTemplates:
+    github-gitops: 
+      url: "https://github.com/k3s-ansible"
+      password:
+      username:
+  repositories:
+    github-gitops:
+      url: "https://github.com/rookout/k3s-ansible"
+  secret:
+    githubSecret: github_webhook_secret

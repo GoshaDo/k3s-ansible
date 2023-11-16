@@ -1,0 +1,49 @@
+---
+load_balancer:
+  hosts:
+    35.184.206.171:
+  vars:
+    kube_port: 6443
+
+k3s_cluster:
+  children:
+    server:
+      hosts:
+        34.30.14.234:
+        35.223.51.204:
+        35.193.39.252:
+    agent:
+      hosts:
+        35.202.52.24:
+        34.173.120.102:
+
+  # Required Vars
+  vars:
+    ansible_port: 22
+    ansible_user: gosha.dozoretz
+    k3s_version: v1.28.3+k3s2
+    token: "K10f250ed3e88f7ece9c34c9a095de08e6ab7ffb51803a433d2a090a1bfd21c7acc::server:b57085535a1c7912a04fd7011141c831"
+    api_endpoint: 35.184.206.171
+    extra_server_args: "--node-taint node-role.kubernetes.io/master=true:NoSchedule"
+    extra_agent_args: ""
+
+  # Optional vars
+    api_port: 6443
+    # k3s_server_location: /var/lib/rancher/k3s
+    # systemd_dir: /etc/systemd/system
+    # extra_service_envs: [ 'ENV_VAR1=VALUE1', 'ENV_VAR2=VALUE2' ]
+    # List of locally available manifests to apply to the cluster, useful for PVCs or Traefik modifications.
+    # Manifests should be either full paths or relative to the playbook directory.
+    # extra_manifests: [ '/path/to/manifest1.yaml', '/path/to/manifest2.yaml' ]
+    # airgap_dir: ../air-gapped
+    # custom_registries_yaml: |
+    #   mirrors:
+    #     registry.domain.com:
+    #       endpoint:
+    #         - "https://registry.domain.com"
+
+    #   configs:
+    #     "registry.domain.com":
+    #       auth:
+    #         username: yourusername
+    #         password: yourpassword

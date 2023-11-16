@@ -1,0 +1,134 @@
+---
+- name: Init first server node
+  # Handle both hostname OR ip address being supplied in inventory
+  when: inventory_hostname == groups['server'][0]
+  block:
+    - name: Copy K3s service file [Single]
+      when: groups['server'] | length == 1
+      ansible.builtin.template:
+        src: "k3s-single.service.j2"
+        dest: "{{ systemd_dir }}/k3s.service"
+        owner: root
+        group: root
+        mode: 0644
+
+    - name: Copy K3s service file [HA]
+      when: groups['server'] | length > 1
+      ansible.builtin.template:
+        src: "k3s-cluster-init.service.j2"
+        dest: "{{ systemd_dir }}/k3s.service"
+        owner: root
+        group: root
+        mode: 0644
+
+    - name: Add service enviorment variables
+      when: extra_service_envs is defined
+      ansible.builtin.lineinfile:
+        path: "{{ systemd_dir }}/k3s.service.env"
+        line: "{{ item }}"
+      with_items: "{{ extra_service_envs }}"
+
+    - name: Enable and check K3s service
+      ansible.builtin.systemd:
+        name: k3s
+        daemon_reload: true
+        state: started
+        enabled: true
+
+    - name: Create directory .kube
+      ansible.builtin.file:
+        path: ~{{ ansible_user }}/.kube
+        state: directory
+        owner: "{{ ansible_user }}"
+        mode: "u=rwx,g=rx,o="
+
+    - name: Pause to allow first server startup
+      when: (groups['server'] | length) > 1
+      ansible.builtin.pause:
+        seconds: 10
+
+    - name: Copy config file to user home directory
+      ansible.builtin.copy:
+        src: /etc/rancher/k3s/k3s.yaml
+        dest: ~{{ ansible_user }}/.kube/config
+        remote_src: true
+        owner: "{{ ansible_user }}"
+        mode: "u=rw,g=,o="
+
+    - name: Add K3s autocomplete to user bashrc
+      become: true
+      become_user: "{{ ansible_user }}"
+      ansible.builtin.command:
+        cmd: "k3s completion bash -i"
+      register: out
+      changed_when: out.rc != 0
+
+    - name: Change server to API endpoint instead of localhost
+      ansible.builtin.command: >-
+         /usr/local/bin/k3s kubectl config set-cluster default
+          --server=https://{{ api_endpoint }}:{{ api_port }}
+          --kubeconfig ~{{ ansible_user }}/.kube/config
+      changed_when: true
+
+    - name: Copy kubectl config to local machine
+      ansible.builtin.fetch:
+        src: ~{{ ansible_user }}/.kube/config
+        dest: ~/.kube/k3s-config
+        flat: true
+    - name: Load server token
+      slurp:
+        src: "/var/lib/rancher/k3s/server/token"
+      register: file_content
+    - name: Set bootstrap token as fact1
+      set_fact:
+        bootstrap_token: "{{ file_content['content'] | b64decode | trim  }}"
+    - name: Debug Load server token
+      debug: 
+        var: bootstrap_token
+
+- name: Start other server if any and verify status
+  when:
+    - (groups['server'] | length) > 1
+    - inventory_hostname != groups['server'][0]
+  block:
+    - name: Set bootstrap token as fact2
+      set_fact:
+        bootstrap_token: "{{ hostvars[groups['server'][0]].bootstrap_token  }}"
+    - name: Debug Load server token
+      debug: 
+        var: bootstrap_token
+    - name: Copy K3s service file [HA]
+      when: groups['server'] | length > 1
+      ansible.builtin.template:
+        src: "k3s-ha.service.j2"
+        dest: "{{ systemd_dir }}/k3s.service"
+        owner: root
+        group: root
+        mode: 0644
+
+    - name: Enable and check K3s service
+      ansible.builtin.systemd:
+        name: k3s
+        daemon_reload: true
+        state: started
+        enabled: true
+
+    - name: Verify that all server nodes joined
+      when: (groups['server'] | length) > 1
+      ansible.builtin.command:
+        cmd: >
+          k3s kubectl get nodes -l "node-role.kubernetes.io/control-plane=true" -o=jsonpath="{.items[*].metadata.name}"
+      register: nodes
+      until: nodes.rc == 0 and (nodes.stdout.split() | length) == (groups['server'] | length)
+      retries: 20
+      delay: 10
+      changed_when: false
+
+- name: Create symlinks
+  ansible.builtin.file:
+    src: /usr/local/bin/k3s
+    dest: /usr/local/bin/{{ item }}
+    state: link
+  with_items:
+    - kubectl
+    - crictl
