@@ -29,3 +29,5 @@ Then apply the Apps of Apps:
 ```
 kubectl apply -f bootstrap/apps.yaml
 ```
+
+Then add the endpoints that you expose with nginx server adress in /etc/hosts
