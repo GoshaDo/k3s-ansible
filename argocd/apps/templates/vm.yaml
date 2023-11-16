@@ -1,0 +1,42 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: vm
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+spec:
+  destination:
+    namespace: victoriametrics
+    server: 'https://kubernetes.default.svc'
+  project: default
+  syncPolicy:
+    automated:
+      selfHeal: true
+      prune: true
+    syncOptions:
+      - CreateNamespace=true
+  source:
+    path: charts/victoria-metrics-k8s-stack
+    repoURL: https://github.com/gosharo/k3s-ansible
+    targetRevision: main
+    helm:
+      values: |
+        grafana:
+          enabled: true
+        ingress:
+          enabled: true
+          annotations:
+            cert-manager.io/cluster-issuer: selfsigned-cluster-issuer
+            kubernetes.io/ingress.class: traefik
+          path: /
+          pathType: Prefix
+
+          hosts:
+            - grafana.local
+          tls:
+          - secretName: grafana-ingress-tls
+            hosts:
+              - grafana.local
+        alertmanager:
+          enabled: false

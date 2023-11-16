@@ -1,0 +1,40 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: temporal
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+spec:
+  destination:
+    namespace: temporal
+    server: 'https://kubernetes.default.svc'
+  project: default
+  syncPolicy:
+    automated:
+      selfHeal: true
+      prune: true
+    syncOptions:
+      - CreateNamespace=true
+  source:
+    path: charts/temporal
+    repoURL: https://github.com/gosharo/k3s-ansible
+    targetRevision: main
+    helm:
+      values: |
+        web:
+          ingress:
+            enabled: true
+            annotations: {}
+            kubernetes.io/ingress.class: traefik
+            traefik.frontend.rule.type: PathPrefix
+            hosts:
+              - temporal.local
+            tls:
+            - secretName: temporal-tls
+              hosts:
+                - temporal.local
+        grafna:
+          enabled: false
+        prometheus:
+          enabled: false

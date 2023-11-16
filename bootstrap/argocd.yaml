@@ -17,13 +17,13 @@ server:
         hosts:
           - argocd.local
 controller:
-  credentialTemplates:
-    github-gitops: 
-      url: "https://github.com/k3s-ansible"
-      password:
-      username:
+  # credentialTemplates:
+  #   github-gitops: 
+  #     url: "https://github.com/gosharo/k3s-ansible"
+  #     password:
+  #     username:
   repositories:
     github-gitops:
       url: "https://github.com/rookout/k3s-ansible"
-  secret:
-    githubSecret: github_webhook_secret
+  # secret:
+  #   githubSecret: github_webhook_secret
