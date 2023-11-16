@@ -1,3 +1,19 @@
+This ansible project installing k3s HA cluster on VMs.
+
+![alt text](https://raw.github.com/gosharo/k3s-ansible/master/docs/img/k3s-cluster.jpg?raw=true)
+
+*Usage*
+
+Edit the ansible configuration files:
+```ansible.cfg and inventory.yml```
+
+Then run the command:
+```
+python3 -m ansible playbook playbook/site.yml
+```
+
+
+
 artifacts:
 
 https://github.com/k3s-io/k3s-selinux/releases/download/v1.4.stable.1
