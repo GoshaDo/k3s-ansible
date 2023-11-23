@@ -1,5 +1,5 @@
 applicationSet:
-  enabled: true
+  enabled: false
 notifications:
   enabled: false
 dex:
@@ -10,10 +10,12 @@ server:
     annotations:
       cert-manager.io/cluster-issuer: selfsigned-cluster-issuer
       kubernetes.io/ingress.class: traefik
+    hosts:
+      - argocd.local
     paths:
         - /
     tls:
-      - secretName: argocd-letsencrypt-poc
+      - secretName: argocd-poc
         hosts:
           - argocd.local
 controller:
