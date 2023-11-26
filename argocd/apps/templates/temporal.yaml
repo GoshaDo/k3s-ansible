@@ -44,13 +44,36 @@ spec:
           enabled: false
         cassandra:
           enabled: false
+        worker:
+          metrics:
+            annotations:
+              enbaled: false
+            serviceMonitor:
+              enabled: true
+        matching:
+          metrics:
+            annotations:
+              enbaled: false
+            serviceMonitor:
+              enabled: true
+        history:
+          metrics:
+            annotations:
+              enbaled: false
+            serviceMonitor:
+              enabled: true
+        frontend:
+          metrics:
+            annotations:
+              enbaled: false
+            serviceMonitor:
+              enabled: true
         server:
           metrics:
             annotations:
               enbaled: false
             serviceMonitor:
               enabled: true
-              interval: 10s
           config:
             persistence:
               default:
