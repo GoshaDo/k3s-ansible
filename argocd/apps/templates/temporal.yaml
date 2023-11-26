@@ -39,4 +39,4 @@ spec:
         prometheus:
           enabled: false
         cassandra:
-          enabled: true
+          enabled: false
