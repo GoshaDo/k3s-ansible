@@ -45,11 +45,12 @@ spec:
         cassandra:
           enabled: false
         server:
-          annotations:
-            enbaled: false
-          serviceMonitor:
-            enabled: true
-            interval: 10s
+          metrics:
+            annotations:
+              enbaled: false
+            serviceMonitor:
+              enabled: true
+              interval: 10s
           config:
             persistence:
               default:
