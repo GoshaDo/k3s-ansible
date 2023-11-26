@@ -34,9 +34,17 @@ spec:
             - secretName: temporal-tls
               hosts:
                 - temporal.local
-        # grafna:
-        #   enabled: false
-        # prometheus:
-        #   enabled: false
-        # cassandra:
-        #   enabled: false
+        grafna:
+          enabled: false
+        prometheus:
+          enabled: false
+        cassandra:
+          config:
+            cluster_size:1 
+        elasticsearch:
+          enabled: false
+        schema:
+          setup:
+            enabled: false
+          update:
+            enabled: false
