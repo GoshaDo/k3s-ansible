@@ -34,7 +34,7 @@ spec:
             - secretName: temporal-tls
               hosts:
                 - temporal.local
-        grafna:
+        grafana:
           enabled: false
         prometheus:
           enabled: false
