@@ -1,15 +1,13 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: kube-prometheus-stack
+  name: temporal
   namespace: argocd
   finalizers:
   - resources-finalizer.argocd.argoproj.io
-  annotations:
-    argocd.argoproj.io/sync-wave: "3"
 spec:
   destination:
-    namespace: default
+    namespace: temporal
     server: 'https://kubernetes.default.svc'
   project: default
   syncPolicy:
@@ -19,34 +17,24 @@ spec:
     syncOptions:
       - CreateNamespace=true
   source:
-    skipCrds: true
-    path: charts/kube-prometheus-stack
+    path: charts/temporal
     repoURL: https://github.com/gosharo/k3s-ansible
     targetRevision: main
     helm:
-      values: |-
-        grafana:
-          defaultDashboardsTimezone: browser
-          grafana.ini:
-            users:
-              allow_sign_up: false
-              auto_assign_org: true
-              auto_assign_org_role: Viewer
-          adminPassword: admin
+      values: |
+        web:
           ingress:
             enabled: true
             annotations: 
               kubernetes.io/ingress.class: traefik
               traefik.frontend.rule.type: PathPrefix
             hosts:
-              - grafana.local
-            tls: 
-              - secretName: grafana-tls
-                hosts:
-                - grafana.local
-      
-
-
-
-
-      
+              - temporal.local
+            tls:
+            - secretName: temporal-tls
+              hosts:
+                - temporal.local
+        grafna:
+          enabled: false
+        prometheus:
+          enabled: false
