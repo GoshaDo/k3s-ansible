@@ -48,5 +48,6 @@ spec:
           config:
             persistence:
               cassandra:
+                port: 9042
                 hosts:
                   - cassandra.temporal.svc.cluster.local
