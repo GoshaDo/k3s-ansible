@@ -49,4 +49,4 @@ spec:
             persistence:
               cassandra:
                 hosts:
-                  - cassandra.default.svc.cluster.local
+                  - cassandra.temporal.svc.cluster.local
