@@ -44,3 +44,9 @@ spec:
           enabled: false
         cassandra:
           enabled: false
+        server:
+          config:
+            persistence:
+              cassandra:
+                hosts:
+                  - cassandra.default.svc.cluster.local
