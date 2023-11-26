@@ -46,32 +46,24 @@ spec:
           enabled: false
         worker:
           metrics:
-            annotations:
-              enbaled: false
             serviceMonitor:
               enabled: true
         matching:
           metrics:
-            annotations:
-              enbaled: false
             serviceMonitor:
               enabled: true
         history:
           metrics:
-            annotations:
-              enbaled: false
             serviceMonitor:
               enabled: true
         frontend:
           metrics:
-            annotations:
-              enbaled: false
             serviceMonitor:
               enabled: true
         server:
-          metrics:
-            annotations:
+          annotations:
               enbaled: false
+          metrics:
             serviceMonitor:
               enabled: true
           config:
