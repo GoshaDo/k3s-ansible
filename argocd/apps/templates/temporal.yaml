@@ -45,6 +45,6 @@ spec:
           enabled: false
         schema:
           setup:
-            enabled: false
+            enabled: true
           update:
-            enabled: false
+            enabled: true
