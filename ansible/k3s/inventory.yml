@@ -1,7 +1,7 @@
 ---
 load_balancer:
   hosts:
-    35.184.206.171:
+   35.225.30.237:
   vars:
     kube_port: 6443
 
@@ -9,14 +9,14 @@ k3s_cluster:
   children:
     server:
       hosts:
-        34.30.14.234:
         35.223.51.204:
-        35.193.39.252:
+        34.173.120.102:
+        35.184.206.171:
     agent:
       hosts:
+        34.30.14.234:
         35.202.52.24:
-        34.173.120.102:
-
+        35.193.39.252:
   # Required Vars
   vars:
     ansible_port: 22
