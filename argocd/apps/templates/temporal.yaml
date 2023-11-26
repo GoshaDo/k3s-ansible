@@ -40,7 +40,7 @@ spec:
           enabled: false
         cassandra:
           config:
-            cluster_size:1 
+            cluster_size: 1 
         elasticsearch:
           enabled: false
         schema:
