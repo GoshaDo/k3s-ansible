@@ -1,0 +1,24 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: temporal-frontend
+  namespace: temporal
+  annotations:
+    kubernetes.io/ingress.class: traefik
+    traefik.frontend.rule.type: PathPrefix
+spec:
+  tls: 
+    - secretName: temporal-frontend-tls
+      hosts:
+      - temporal-frontend.local
+  rules:
+    - host: temporal-frontend.local
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: temporal-frontend
+                port:
+                  number: 8088
