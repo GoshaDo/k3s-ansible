@@ -1,0 +1,51 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: kube-prometheus-stack
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+  annotations:
+    argocd.argoproj.io/sync-wave: "3"
+spec:
+  destination:
+    namespace: default
+    server: 'https://kubernetes.default.svc'
+  project: default
+  syncPolicy:
+    automated:
+      selfHeal: true
+      prune: true
+    syncOptions:
+      - CreateNamespace=true
+  source:
+    path: charts/kube-prometheus-stack
+    repoURL: https://github.com/gosharo/k3s-ansible
+    targetRevision: main
+    helm:
+      values: |-
+        grafana:
+          defaultDashboardsTimezone: browser
+          grafana.ini:
+            users:
+              allow_sign_up: false
+              auto_assign_org: true
+              auto_assign_org_role: Viewer
+          adminPassword: admin
+          ingress:
+            enabled: true
+            annotations: 
+              kubernetes.io/ingress.class: traefik
+              traefik.frontend.rule.type: PathPrefix
+            hosts:
+              - grafana.local
+            tls: 
+              - secretName: grafana-tls
+                hosts:
+                - grafana.local
+      
+
+
+
+
+      

@@ -31,7 +31,6 @@ spec:
             kubernetes.io/ingress.class: traefik
           path: /
           pathType: Prefix
-
           hosts:
             - grafana.local
           tls:
