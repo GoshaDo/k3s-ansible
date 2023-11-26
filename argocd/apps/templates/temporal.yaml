@@ -38,3 +38,5 @@ spec:
           enabled: false
         prometheus:
           enabled: false
+        cassandra:
+          enabled: true
