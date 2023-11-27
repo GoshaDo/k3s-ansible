@@ -6,7 +6,7 @@ metadata:
   annotations:
     kubernetes.io/ingress.class: traefik
     traefik.frontend.rule.type: PathPrefix
-    traefik.ingress.kubernetes.io/service.nativelb: "true"
+    # traefik.ingress.kubernetes.io/service.nativelb: "true"
     # cert-manager.io/cluster-issuer: selfsigned-cluster-issuer
 spec:
   tls: []
