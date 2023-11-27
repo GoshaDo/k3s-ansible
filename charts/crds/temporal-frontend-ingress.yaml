@@ -5,10 +5,7 @@ metadata:
   namespace: temporal
   annotations:
     kubernetes.io/ingress.class: traefik
-    traefik.frontend.rule.type: PathPrefix
-    traefik.ingress.kubernetes.io/router.tls: "false"
-    # traefik.ingress.kubernetes.io/service.nativelb: "true"
-    # cert-manager.io/cluster-issuer: selfsigned-cluster-issuer
+    traefik.ingress.kubernetes.io/router.entrypoints: web
 spec:
   tls: []
     # - secretName: temporal-frontend-tls
