@@ -20,3 +20,5 @@ spec:
     path: charts/crds
     repoURL: https://github.com/gosharo/k3s-ansible
     targetRevision: main
+    directory:
+      recurse: true
