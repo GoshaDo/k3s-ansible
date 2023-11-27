@@ -22,11 +22,12 @@ spec:
     targetRevision: main
     helm:
       values: |
+        rbac:
+          clusterReadOnlyRole: true
         protocolHttp: true
         service:
           type: ClusterIP
           externalPort: 80
-
         ingress:
           enabled: true
           annotations:
