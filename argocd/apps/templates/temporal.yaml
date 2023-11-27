@@ -44,12 +44,12 @@ spec:
           enabled: false
         cassandra:
           enabled: false
-        frontend:
-          service:
-            annotations: {}
-            type: LoadBalancer
-            port: 7233
         server:
+          frontend:
+            service:
+              annotations: {}
+              type: LoadBalancer
+              port: 7233
           metrics:
             annotations:
               enbaled: false
