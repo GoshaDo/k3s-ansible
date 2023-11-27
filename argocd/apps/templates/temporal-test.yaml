@@ -31,6 +31,7 @@ spec:
           enabled: true
           annotations:
             kubernetes.io/ingress.class: traefik
+            cert-manager.io/cluster-issuer: selfsigned-cluster-issuer
           hosts:
             - host: temporal-test.local
               paths:
