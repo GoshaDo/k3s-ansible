@@ -21,4 +21,4 @@ spec:
               service:
                 name: temporal-frontend
                 port:
-                  number: 8088
+                  number: 7233
