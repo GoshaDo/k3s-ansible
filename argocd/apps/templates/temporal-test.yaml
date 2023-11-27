@@ -1,0 +1,42 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: temporal-test
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+spec:
+  destination:
+    namespace: default
+    server: 'https://kubernetes.default.svc'
+  project: default
+  syncPolicy:
+    automated:
+      selfHeal: true
+      prune: true
+    syncOptions:
+      - CreateNamespace=true
+  source:
+    path: charts/temporal-test
+    repoURL: https://github.com/gosharo/k3s-ansible
+    targetRevision: main
+    helm:
+      values: |
+        tests:
+          namespaceName: default
+          namespaceRetention: "1"
+          frontendAddress: temporal-frontend.temporal.vsc.cluster.local:7233
+          prometheusURL: "http://prometheus-server"
+        ingress:
+          enabled: true
+          annotations:
+            kubernetes.io/ingress.class: traefik
+            traefik.frontend.rule.type: PathPrefix
+          hosts:
+            - host: temporal-test.local
+              paths:
+                - /
+          tls: 
+           - secretName: temporal-test-tls
+             hosts:
+               - temporal-test.local
