@@ -8,10 +8,10 @@ metadata:
     traefik.frontend.rule.type: PathPrefix
     cert-manager.io/cluster-issuer: selfsigned-cluster-issuer
 spec:
-  tls: 
-    - secretName: temporal-frontend-tls
-      hosts:
-      - temporal-frontend.local
+  tls: []
+    # - secretName: temporal-frontend-tls
+    #   hosts:
+    #   - temporal-frontend.local
   rules:
     - host: temporal-frontend.local
       http:
