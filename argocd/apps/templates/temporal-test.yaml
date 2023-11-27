@@ -23,7 +23,7 @@ spec:
     helm:
       values: |
         tests:
-          namespaceName: default
+          namespaceName: benchtest
           namespaceRetention: "1"
           frontendAddress: temporal-frontend.temporal.svc.cluster.local:7233
           prometheusURL: "http://prometheus-server"
