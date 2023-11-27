@@ -25,7 +25,7 @@ spec:
         tests:
           namespaceName: default
           namespaceRetention: "1"
-          frontendAddress: temporal-frontend.temporal.vsc.cluster.local:7233
+          frontendAddress: temporal-frontend.temporal.svc.cluster.local:7233
           prometheusURL: "http://prometheus-server"
         ingress:
           enabled: true
