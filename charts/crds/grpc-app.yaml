@@ -15,7 +15,7 @@ spec:
         app: go-grpc-greeter-server
     spec:
       containers:
-      - image: <reponame>/go-grpc-greeter-server   # Edit this for your reponame
+      - image: darkhorsespb/go-grpc-greeter-server   # Edit this for your reponame
         resources:
           limits:
             cpu: 100m
