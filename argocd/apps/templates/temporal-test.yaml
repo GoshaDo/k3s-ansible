@@ -28,7 +28,7 @@ spec:
           frontendAddress: temporal-frontend.temporal.svc.cluster.local:7233
           prometheusURL: "http://prometheus-server"
         ingress:
-          enabled: false
+          enabled: true
           annotations:
             kubernetes.io/ingress.class: nginx
             cert-manager.io/cluster-issuer: selfsigned-cluster-issuer
