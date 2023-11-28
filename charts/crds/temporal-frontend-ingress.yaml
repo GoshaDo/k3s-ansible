@@ -4,8 +4,8 @@ metadata:
   name: temporal-frontend
   namespace: temporal
   annotations:
-    kubernetes.io/ingress.class: traefik
-    traefik.ingress.kubernetes.io/router.entrypoints: web
+    kubernetes.io/ingress.class: nginx
+    cert-manager.io/cluster-issuer: selfsigned-cluster-issuer
 spec:
   tls: []
     # - secretName: temporal-frontend-tls

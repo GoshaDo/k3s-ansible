@@ -11,7 +11,7 @@ server:
     enabled: true
     annotations:
       cert-manager.io/cluster-issuer: selfsigned-cluster-issuer
-      kubernetes.io/ingress.class: traefik
+      kubernetes.io/ingress.class: nginx
     hosts:
       - argocd.local
     paths:
