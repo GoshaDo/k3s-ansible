@@ -50,6 +50,8 @@ spec:
               enbaled: false
             serviceMonitor:
               enabled: true
+              additionalLabels: 
+                release: kube-prometheus-stack
           config:
             persistence:
               default:
