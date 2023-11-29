@@ -25,6 +25,9 @@ spec:
     targetRevision: main
     helm:
       values: |-
+        prometheus:
+          prometheusSpec:
+            podMonitorSelectorNilUsesHelmValues: false
         grafana:
           defaultDashboardsTimezone: browser
           grafana.ini:
