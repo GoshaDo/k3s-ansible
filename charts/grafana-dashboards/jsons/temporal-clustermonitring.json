@@ -100,7 +100,7 @@
       "tableColumn": "",
       "targets": [
         {
-          "expr": "sum (container_memory_working_set_bytes{id=\"/\",node=~\"^$Node$\"}) / sum (machine_memory_bytes{node=~\"^$Node$\"}) * 100",
+          "expr": "sum (container_memory_working_set_bytes{node=~\"^$Node$\"}) / sum (machine_memory_bytes{node=~\"^$Node$\"}) * 100",
           "format": "time_series",
           "interval": "10s",
           "intervalFactor": 1,
@@ -186,7 +186,7 @@
       "tableColumn": "",
       "targets": [
         {
-          "expr": "sum (rate (container_cpu_usage_seconds_total{id=\"/\",node=~\"^$Node$\"}[$interval])) / sum (machine_cpu_cores{node=~\"^$Node$\"}) * 100",
+          "expr": "sum (rate (container_cpu_usage_seconds_total{node=~\"^$Node$\"}[$interval])) / sum (machine_cpu_cores{node=~\"^$Node$\"}) * 100",
           "format": "time_series",
           "interval": "10s",
           "intervalFactor": 1,
@@ -361,7 +361,7 @@
       "tableColumn": "",
       "targets": [
         {
-          "expr": "sum (container_memory_working_set_bytes{id=\"/\",node=~\"^$Node$\"})",
+          "expr": "sum (container_memory_working_set_bytes{node=~\"^$Node$\"})",
           "format": "time_series",
           "interval": "10s",
           "intervalFactor": 1,
@@ -533,7 +533,7 @@
       "tableColumn": "",
       "targets": [
         {
-          "expr": "sum (rate (container_cpu_usage_seconds_total{id=\"/\",node=~\"^$Node$\"}[$interval]))",
+          "expr": "sum (rate (container_cpu_usage_seconds_total{node=~\"^$Node$\"}[$interval]))",
           "format": "time_series",
           "interval": "10s",
           "intervalFactor": 1,
