@@ -37,21 +37,21 @@ spec:
               hosts:
                 - temporal.local
         grafana:
-          enabled: false
+          enabled: true
         prometheus:
-          enabled: false
+          enabled: true
         elasticsearch:
           enabled: false
         cassandra:
           enabled: false
-        server:
-          metrics:
-            annotations:
-              enbaled: false
-            serviceMonitor:
-              enabled: true
-              additionalLabels: 
-                release: kube-prometheus-stack
+        # server:
+        #   metrics:
+        #     annotations:
+        #       enbaled: false
+        #     serviceMonitor:
+        #       enabled: true
+        #       additionalLabels: 
+        #         release: kube-prometheus-stack
           config:
             persistence:
               default:
