@@ -47,9 +47,9 @@ spec:
         server:
           metrics:
             annotations:
-              enbaled: false
+              enbaled: true
             serviceMonitor:
-              enabled: true
+              enabled: false
               additionalLabels: 
                 release: kube-prometheus-stack
           config:
