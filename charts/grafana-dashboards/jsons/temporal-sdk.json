@@ -2866,7 +2866,9 @@
   ],
   "schemaVersion": 22,
   "style": "dark",
-  "tags": [],
+  "tags": [
+    "Temporal"
+  ],
   "templating": {
     "list": [
       {
