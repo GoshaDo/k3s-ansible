@@ -37,9 +37,9 @@ spec:
               hosts:
                 - temporal.local
         grafana:
-          enabled: true
+          enabled: false
         prometheus:
-          enabled: true
+          enabled: false
         elasticsearch:
           enabled: false
         cassandra:
