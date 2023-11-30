@@ -30,7 +30,7 @@
       },
       "id": 8,
       "panels": [],
-      "title": "RPC Overview ($exported_namespace)",
+      "title": "RPC Overview ($Namespace)",
       "type": "row"
     },
     {
@@ -74,13 +74,13 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(rate(temporal_request{namespace=~\"$exported_namespace\"}[5m]))",
+          "expr": "sum(rate(temporal_request{namespace=~\"$Namespace\"}[5m]))",
           "interval": "",
           "legendFormat": "requests",
           "refId": "A"
         },
         {
-          "expr": "sum(rate(temporal_request_failure{namespace=~\"$exported_namespace\"}[5m]))",
+          "expr": "sum(rate(temporal_request_failure{namespace=~\"$Namespace\"}[5m]))",
           "interval": "",
           "legendFormat": "failures",
           "refId": "B"
@@ -168,7 +168,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum by (operation) ((rate(temporal_request{namespace=~\"$exported_namespace\"}[5m])))",
+          "expr": "sum by (operation) ((rate(temporal_request{namespace=~\"$Namespace\"}[5m])))",
           "interval": "",
           "legendFormat": "{{ operation }}",
           "refId": "A"
@@ -256,7 +256,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum by (operation) (rate(temporal_request_failure{namespace=~\"$exported_namespace\"}[5m]))",
+          "expr": "sum by (operation) (rate(temporal_request_failure{namespace=~\"$Namespace\"}[5m]))",
           "interval": "",
           "legendFormat": "{{ operation }}",
           "refId": "A"
@@ -344,7 +344,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "histogram_quantile(0.95, sum by (namespace, operation, le) (rate(temporal_request_latency_bucket{namespace=~\"$exported_namespace\"}[5m])))",
+          "expr": "histogram_quantile(0.95, sum by (namespace, operation, le) (rate(temporal_request_latency_bucket{namespace=~\"$Namespace\"}[5m])))",
           "interval": "",
           "legendFormat": "{{ namespace }} - {{ operation }}",
           "refId": "A"
@@ -354,7 +354,7 @@
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "RPC Latencies ($exported_namespace)",
+      "title": "RPC Latencies ($Namespace)",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -443,26 +443,26 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "sum(rate(temporal_workflow_completed{namespace=~\"$exported_namespace\"}[5m]))",
+              "expr": "sum(rate(temporal_workflow_completed{namespace=~\"$Namespace\"}[5m]))",
               "hide": false,
               "interval": "",
               "legendFormat": "success",
               "refId": "A"
             },
             {
-              "expr": "sum(rate(temporal_workflow_failed{namespace=~\"$exported_namespace\"}[5m]))",
+              "expr": "sum(rate(temporal_workflow_failed{namespace=~\"$Namespace\"}[5m]))",
               "interval": "",
               "legendFormat": "failed",
               "refId": "B"
             },
             {
-              "expr": "sum(rate(temporal_workflow_canceled{namespace=~\"$exported_namespace\"}[5m]))",
+              "expr": "sum(rate(temporal_workflow_canceled{namespace=~\"$Namespace\"}[5m]))",
               "interval": "",
               "legendFormat": "canceled",
               "refId": "C"
             },
             {
-              "expr": "sum(rate(temporal_workflow_continue_as_new{namespace=~\"$exported_namespace\"}[5m]))",
+              "expr": "sum(rate(temporal_workflow_continue_as_new{namespace=~\"$Namespace\"}[5m]))",
               "interval": "",
               "legendFormat": "continued_as_new",
               "refId": "D"
@@ -550,7 +550,7 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "histogram_quantile(0.95, sum(rate(temporal_workflow_endtoend_latency_bucket{namespace=~\"$exported_namespace\"}[5m])) by (namespace, workflow_type, le))",
+              "expr": "histogram_quantile(0.95, sum(rate(temporal_workflow_endtoend_latency_bucket{namespace=~\"$Namespace\"}[5m])) by (namespace, workflow_type, le))",
               "interval": "",
               "legendFormat": "{{ namespace }} - {{ workflow_type }}",
               "refId": "B"
@@ -638,7 +638,7 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "sum by (namespace, workflow_type) (rate(temporal_workflow_completed{namespace=~\"$exported_namespace\"}[5m]))",
+              "expr": "sum by (namespace, workflow_type) (rate(temporal_workflow_completed{namespace=~\"$Namespace\"}[5m]))",
               "hide": false,
               "interval": "",
               "legendFormat": "{{ namespace }} - {{ workflow_type }}",
@@ -727,7 +727,7 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "sum by (namespace, workflow_type) (rate(temporal_workflow_failed{namespace=~\"$exported_namespace\"}[5m]))",
+              "expr": "sum by (namespace, workflow_type) (rate(temporal_workflow_failed{namespace=~\"$Namespace\"}[5m]))",
               "hide": false,
               "interval": "",
               "legendFormat": "{{ namespace }} - {{ workflow_type }}",
@@ -831,7 +831,7 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "sum by (namespace, workflow_type) (rate(temporal_workflow_task_queue_poll_succeed{namespace=~\"$exported_namespace\"}[5m]))",
+              "expr": "sum by (namespace, workflow_type) (rate(temporal_workflow_task_queue_poll_succeed{namespace=~\"$Namespace\"}[5m]))",
               "interval": "",
               "legendFormat": "{{ namespace }} - {{ workflow_type }}",
               "refId": "B"
@@ -919,7 +919,7 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "sum by (namespace) (rate(temporal_workflow_task_queue_poll_succeed{namespace=~\"$exported_namespace\"}[5m]))",
+              "expr": "sum by (namespace) (rate(temporal_workflow_task_queue_poll_succeed{namespace=~\"$Namespace\"}[5m]))",
               "interval": "",
               "legendFormat": "{{ namespace }}",
               "refId": "B"
@@ -1007,7 +1007,7 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "sum by (namespace) (rate(temporal_workflow_task_queue_poll_empty{namespace=~\"$exported_namespace\"}[5m]))",
+              "expr": "sum by (namespace) (rate(temporal_workflow_task_queue_poll_empty{namespace=~\"$Namespace\"}[5m]))",
               "interval": "",
               "legendFormat": "Empty Poll - {{ namespace }}",
               "refId": "A"
@@ -1095,7 +1095,7 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "histogram_quantile(0.95, sum(rate(temporal_workflow_task_schedule_to_start_latency_bucket{namespace=~\"$exported_namespace\"}[5m])) by (namespace, le))",
+              "expr": "histogram_quantile(0.95, sum(rate(temporal_workflow_task_schedule_to_start_latency_bucket{namespace=~\"$Namespace\"}[5m])) by (namespace, le))",
               "interval": "",
               "legendFormat": "{{ namespace }}",
               "refId": "A"
@@ -1183,7 +1183,7 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "histogram_quantile(0.95, sum(rate(temporal_workflow_task_schedule_to_start_latency_bucket{namespace=~\"$exported_namespace\"}[5m])) by (namespace, workflow_type, le))",
+              "expr": "histogram_quantile(0.95, sum(rate(temporal_workflow_task_schedule_to_start_latency_bucket{namespace=~\"$Namespace\"}[5m])) by (namespace, workflow_type, le))",
               "interval": "",
               "legendFormat": "{{ namespace }} -- {{ workflow_type }}",
               "refId": "A"
@@ -1271,7 +1271,7 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "sum by (namespace) (rate(temporal_workflow_task_execution_failed{namespace=~\"$exported_namespace\"}[5m]))",
+              "expr": "sum by (namespace) (rate(temporal_workflow_task_execution_failed{namespace=~\"$Namespace\"}[5m]))",
               "interval": "",
               "legendFormat": "{{ namespace }}",
               "refId": "B"
@@ -1359,7 +1359,7 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "sum by (namespace, workflow_type) (rate(temporal_workflow_task_execution_failed{namespace=~\"$exported_namespace\"}[5m]))",
+              "expr": "sum by (namespace, workflow_type) (rate(temporal_workflow_task_execution_failed{namespace=~\"$Namespace\"}[5m]))",
               "interval": "",
               "legendFormat": "{{ namespace }} -- {{ workflow_type }}",
               "refId": "B"
@@ -1447,7 +1447,7 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "histogram_quantile(0.95, sum(rate(temporal_workflow_task_execution_latency_bucket{namespace=~\"$exported_namespace\"}[5m])) by (namespace, le))",
+              "expr": "histogram_quantile(0.95, sum(rate(temporal_workflow_task_execution_latency_bucket{namespace=~\"$Namespace\"}[5m])) by (namespace, le))",
               "interval": "",
               "legendFormat": "{{ namespace }}",
               "refId": "A"
@@ -1535,7 +1535,7 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "histogram_quantile(0.95, sum(rate(temporal_workflow_task_execution_latency_bucket{namespace=~\"$exported_namespace\"}[5m])) by (namespace, workflow_type, le))",
+              "expr": "histogram_quantile(0.95, sum(rate(temporal_workflow_task_execution_latency_bucket{namespace=~\"$Namespace\"}[5m])) by (namespace, workflow_type, le))",
               "interval": "",
               "legendFormat": "{{ namespace }} -- {{ workflow_type }}",
               "refId": "A"
@@ -1623,7 +1623,7 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "histogram_quantile(0.95, sum(rate(temporal_workflow_task_replay_latency_bucket{namespace=~\"$exported_namespace\"}[5m])) by (namespace, le))",
+              "expr": "histogram_quantile(0.95, sum(rate(temporal_workflow_task_replay_latency_bucket{namespace=~\"$Namespace\"}[5m])) by (namespace, le))",
               "interval": "",
               "legendFormat": "{{ namespace }}",
               "refId": "A"
@@ -1711,7 +1711,7 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "histogram_quantile(0.95, sum(rate(temporal_workflow_task_replay_latency_bucket{namespace=~\"$exported_namespace\"}[5m])) by (namespace, workflow_type, le))",
+              "expr": "histogram_quantile(0.95, sum(rate(temporal_workflow_task_replay_latency_bucket{namespace=~\"$Namespace\"}[5m])) by (namespace, workflow_type, le))",
               "interval": "",
               "legendFormat": "{{ namespace }} -- {{ workflow_type }}",
               "refId": "A"
@@ -1814,7 +1814,7 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "sum by (namespace) (rate(temporal_activity_execution_latency_count{namespace=~\"$exported_namespace\"}[5m]))",
+              "expr": "sum by (namespace) (rate(temporal_activity_execution_latency_count{namespace=~\"$Namespace\"}[5m]))",
               "interval": "",
               "legendFormat": "",
               "refId": "A"
@@ -1902,7 +1902,7 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "sum by (namespace, activity_type) (rate(temporal_activity_execution_latency_count{namespace=~\"$exported_namespace\"}[5m]))",
+              "expr": "sum by (namespace, activity_type) (rate(temporal_activity_execution_latency_count{namespace=~\"$Namespace\"}[5m]))",
               "interval": "",
               "legendFormat": "{{ namespace }} - {{ activity_type }}",
               "refId": "A"
@@ -1990,7 +1990,7 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "sum by (namespace, activity_type) (rate(temporal_activity_execution_failed{namespace=~\"$exported_namespace\"}[5m]))",
+              "expr": "sum by (namespace, activity_type) (rate(temporal_activity_execution_failed{namespace=~\"$Namespace\"}[5m]))",
               "interval": "",
               "legendFormat": "{{ namespace }} - {{ activity_type }}",
               "refId": "A"
@@ -2078,7 +2078,7 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "histogram_quantile(0.95, sum(rate(temporal_activity_execution_latency_bucket{namespace=~\"$exported_namespace\"}[5m])) by (namespace, activity_type, le))",
+              "expr": "histogram_quantile(0.95, sum(rate(temporal_activity_execution_latency_bucket{namespace=~\"$Namespace\"}[5m])) by (namespace, activity_type, le))",
               "interval": "",
               "legendFormat": "{{ namespace }} - {{ activity_type }}",
               "refId": "A"
@@ -2166,7 +2166,7 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "histogram_quantile(0.95, sum(rate(temporal_activity_endtoend_latency_bucket{namespace=~\"$exported_namespace\"}[5m])) by (namespace, activity_type, le))",
+              "expr": "histogram_quantile(0.95, sum(rate(temporal_activity_endtoend_latency_bucket{namespace=~\"$Namespace\"}[5m])) by (namespace, activity_type, le))",
               "interval": "",
               "legendFormat": "",
               "refId": "A"
@@ -2269,7 +2269,7 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "sum by (namespace) (rate(temporal_activity_poll_no_task{namespace=~\"$exported_namespace\"}[5m]))",
+              "expr": "sum by (namespace) (rate(temporal_activity_poll_no_task{namespace=~\"$Namespace\"}[5m]))",
               "interval": "",
               "legendFormat": "{{ namespace }}",
               "refId": "A"
@@ -2357,7 +2357,7 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "histogram_quantile(0.95, sum(rate(temporal_activity_schedule_to_start_latency_bucket{namespace=~\"$exported_namespace\"}[5m])) by (namespace, le))",
+              "expr": "histogram_quantile(0.95, sum(rate(temporal_activity_schedule_to_start_latency_bucket{namespace=~\"$Namespace\"}[5m])) by (namespace, le))",
               "interval": "",
               "legendFormat": "",
               "refId": "B"
@@ -2445,7 +2445,7 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "histogram_quantile(0.95, sum(rate(temporal_activity_schedule_to_start_latency_bucket{namespace=~\"$exported_namespace\"}[5m])) by (namespace, activity_type, le))",
+              "expr": "histogram_quantile(0.95, sum(rate(temporal_activity_schedule_to_start_latency_bucket{namespace=~\"$Namespace\"}[5m])) by (namespace, activity_type, le))",
               "interval": "",
               "legendFormat": "{{ namespace }} - {{ activity_type }}",
               "refId": "A"
@@ -2548,7 +2548,7 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "sum by (namespace) (rate(temporal_sticky_cache_hit{namespace=~\"$exported_namespace\"}[5m]))",
+              "expr": "sum by (namespace) (rate(temporal_sticky_cache_hit{namespace=~\"$Namespace\"}[5m]))",
               "interval": "",
               "legendFormat": "{{ namespace }}",
               "refId": "A"
