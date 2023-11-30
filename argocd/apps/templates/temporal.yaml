@@ -39,7 +39,7 @@ spec:
         grafana:
           enabled: false
         prometheus:
-          enabled: false
+          enabled: true
         elasticsearch:
           enabled: false
         cassandra:
